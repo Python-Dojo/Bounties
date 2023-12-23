@@ -9,9 +9,10 @@ html = requests.get(url)
 
 soup = BeautifulSoup(html.content, 'html.parser')
 # print(soup.prettify())
-
+print('-----------------------------------------')
 function_type = soup.find('span', class_ = 'kw4')
 print(function_type.text)
+print('-----------------------------------------')
 
 function = soup.find_all(class_='mw-geshi cpp source-cpp')
 # print(function[0].text)
@@ -23,7 +24,7 @@ if kw4_element:
 
 # Access and print the modified text content of the <span> element
 print(function[0].text.strip())
-
+print('-----------------------------------------')
 
 # Find and exclude the <span> element with class 'kw4'
 kw4_element_2 = function[1].find('span', class_='kw4')
@@ -31,18 +32,24 @@ if kw4_element_2:
     kw4_element_2.decompose()
 
 print(function[1].text.strip())
-
+print('-----------------------------------------')
 function_description = soup.find(class_= 't-li1')
 print(function_description.text)
-
+print('-----------------------------------------')
 # Find the <div> tag with class 't-li1'
 div_tag = soup.find('div', class_='t-li1')
 
-# Find the <p> tag that is a sibling of the <div> tag
-p_tag = div_tag.find_next_sibling('p')
+current_tag = div_tag.find_next_sibling()
+while current_tag:
+    if current_tag.name == 'p':
+        print(current_tag.text.strip())
+    elif current_tag.name == 'ul':
+        print(current_tag.text.strip())
 
-# Print the text content of the <p> tag
-if p_tag:
-    print('TEST:',p_tag.text.strip())
-else:
-    print("Sibling <p> tag not found.")
+    current_tag = current_tag.find_next_sibling()
+print('-----------------------------------------')
+
+
+
+
+
