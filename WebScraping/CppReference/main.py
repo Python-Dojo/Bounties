@@ -49,7 +49,25 @@ while current_tag:
     current_tag = current_tag.find_next_sibling()
 print('-----------------------------------------')
 
+#Remove the <p> tags above that follow the h3 tag
+h3_tag = div_tag.find_next_sibling('h3')
+p_tag_posth3 = h3_tag.find_next_sibling('p')
 
+while p_tag_posth3:
+    if p_tag_posth3.name == 'p':
+        print(p_tag_posth3.text.strip())
+    
+    p_tag_posth3 = p_tag_posth3.find_next_sibling()
 
+print('TEST')
 
+#decompose p_tag_posth3 from the above
 
+# Find the <h3> tag
+h3_tag = div_tag.find_next_sibling('h3')
+
+# Find all <p> tags after the <h3> tag and decompose them
+p_tags_after_h3 = h3_tag.find_all_next('p')
+for p_tag in p_tags_after_h3:
+    print("Removing:", p_tag.text.strip())
+    p_tag.decompose()
